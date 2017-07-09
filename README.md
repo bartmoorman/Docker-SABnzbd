@@ -2,6 +2,7 @@
 docker run \
 --rm \
 --detach \
+--init \
 --name sabnzbd \
 --network backend \
 --volume /mnt/sabnzbd:/data \
