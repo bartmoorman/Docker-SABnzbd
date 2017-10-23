@@ -1,9 +1,4 @@
-FROM ubuntu:xenial
-
-ENV TZ="America/Denver" \
-    LANG="en_US.UTF-8"
-
-ARG DEBIAN_FRONTEND=noninteractive
+FROM bmoorman/ubuntu
 
 RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' > /etc/apt/sources.list.d/sabnzbd.list && \
     echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' >> /etc/apt/sources.list.d/sabnzbd.list && \
@@ -12,8 +7,7 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' > /etc/a
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4BB9F05F && \
     apt-get update && \
     apt-get dist-upgrade --yes && \
-    apt-get install --yes --no-install-recommends tzdata locales sabnzbdplus python-sabyenc python-cryptography ca-certificates par2-tbb unrar unzip p7zip-full openssh-client && \
-    locale-gen en_US.UTF-8 && \
+    apt-get install --yes --no-install-recommends sabnzbdplus python-sabyenc python-cryptography par2-tbb unrar unzip p7zip-full openssh-client && \
     apt-get autoremove --yes --purge && \
     apt-get clean && \
     rm --recursive --force /var/lib/apt/lists/* /tmp/* /var/tmp/*
