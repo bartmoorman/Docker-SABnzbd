@@ -5,8 +5,8 @@ docker run \
 --init \
 --name sabnzbd \
 --hostname sabnzbd \
---volume sabnzbd-data:/data \
 --volume sabnzbd-config:/config \
+--volume sabnzbd-data:/data \
 --publish 8080:8080 \
 bmoorman/sabnzbd
 ```

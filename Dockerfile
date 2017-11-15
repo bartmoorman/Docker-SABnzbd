@@ -23,7 +23,7 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' > /etc/a
 
 COPY sabnzbd/ /etc/sabnzbd/
 
-VOLUME /data /config
+VOLUME /config /data
 
 EXPOSE 8080
 
