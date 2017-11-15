@@ -21,8 +21,10 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' > /etc/a
  && apt-get clean \
  && rm --recursive --force /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY sabnzbd/ /etc/sabnzbd/
+
 VOLUME /data /config
 
 EXPOSE 8080
 
-CMD ["sabnzbdplus", "--config-file", "/config" ,"--server" ,"0.0.0.0" ,"--browser" ,"0"]
+CMD ["/etc/sabnzbd/start.sh"]
