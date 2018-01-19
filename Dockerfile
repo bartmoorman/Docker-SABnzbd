@@ -16,6 +16,7 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' > /etc/a
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4BB9F05F \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
+    curl \
     openssh-client \
     openvpn \
     p7zip-full \
@@ -43,3 +44,5 @@ VOLUME /config /data
 EXPOSE 8080
 
 CMD ["/etc/openvpn/start.sh"]
+
+HEALTHCHECK --interval=60s --timeout=5s CMD curl --silent --location --fail http://localhost:8080/ > /dev/null || exit 1
