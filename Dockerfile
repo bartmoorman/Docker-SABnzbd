@@ -3,7 +3,8 @@ FROM bmoorman/ubuntu:xenial
 ENV OPENVPN_USERNAME="**username**" \
     OPENVPN_PASSWORD="**password**" \
     OPENVPN_GATEWAY="Automatic" \
-    OPENVPN_LOCAL_NETWORK="192.168.0.0/16"
+    OPENVPN_LOCAL_NETWORK="192.168.0.0/16" \
+    SABNZBD_PORT="8080"
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
@@ -41,8 +42,8 @@ COPY sabnzbd/ /etc/sabnzbd/
 
 VOLUME /config /data
 
-EXPOSE 8080
+EXPOSE ${SABNZBD_PORT}
 
 CMD ["/etc/openvpn/start.sh"]
 
-HEALTHCHECK --interval=60s --timeout=5s CMD curl --silent --location --fail http://localhost:8080/ > /dev/null || exit 1
+HEALTHCHECK --interval=60s --timeout=5s CMD curl --head --insecure --silent --show-error --fail "http://localhost:${SABNZBD_PORT}/" || exit 1
