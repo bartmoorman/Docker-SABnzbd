@@ -1,5 +1,7 @@
 FROM bmoorman/ubuntu:xenial
 
+ENV SABNZBD_PORT="8080"
+
 ARG DEBIAN_FRONTEND="noninteractive"
 
 RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu xenial main' > /etc/apt/sources.list.d/sabnzbd.list \
@@ -26,8 +28,8 @@ COPY sabnzbd/ /etc/sabnzbd/
 
 VOLUME /config /data
 
-EXPOSE 8080
+EXPOSE ${SABNZBD_PORT}
 
 CMD ["/etc/sabnzbd/start.sh"]
 
-HEALTHCHECK --interval=60s --timeout=5s CMD curl --silent --location --fail http://localhost:8080/ > /dev/null || exit 1
+HEALTHCHECK --interval=60s --timeout=5s CMD curl --head --insecure --silent --show-error --fail "http://localhost:${SABNZBD_PORT}/" || exit 1
