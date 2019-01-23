@@ -1,6 +1,6 @@
 ## Without VPN
 
-### Usage
+### Docker Run
 ```
 docker run \
 --detach \
@@ -11,9 +11,27 @@ docker run \
 bmoorman/sabnzbd:latest
 ```
 
+### Docker Compose
+```
+version: "3.7"
+services:
+  sabnzbd:
+    image: bmoorman/sabnzbd:latest
+    container_name: sabnzbd
+    ports:
+      - "8080:8080"
+    volumes:
+      - sabnzbd-config:/config
+      - sabnzbd-data:/data
+
+volumes:
+  sabnzbd-config:
+  sabnzbd-data:
+```
+
 ## With VPN provided by Private Internet Access
 
-### Usage
+### Docker Run
 ```
 docker run \
 --detach \
@@ -28,4 +46,32 @@ docker run \
 --volume sabnzbd-config:/config \
 --volume sabnzbd-data:/data \
 bmoorman/sabnzbd:vpn
+```
+
+### Docker Compose
+```
+version: "3.7"
+services:
+  sabnzbd:
+    image: bmoorman/sabnzbd:vpn
+    container_name: sabnzbd
+    dns:
+      - 209.222.18.222
+      - 209.222.18.218
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    ports:
+      - "8080:8080"
+    environment:
+      - OPENVPN_USERNAME=**username**
+      - OPENVPN_PASSWORD=**password**
+    volumes:
+      - sabnzbd-config:/config
+      - sabnzbd-data:/data
+
+volumes:
+  sabnzbd-config:
+  sabnzbd-data:
 ```
