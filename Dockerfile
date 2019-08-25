@@ -8,7 +8,7 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' > /etc/a
  && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd.list \
  && echo 'deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu bionic main' > /etc/apt/sources.list.d/sabnzbd-addons.list \
  && echo 'deb-src http://ppa.launchpad.net/jcfp/sab-addons/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd-addons.list \
- && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4BB9F05F \
+ && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F13930B14BB9F05F \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
     curl \
