@@ -1,25 +1,25 @@
 #!/bin/bash
 # https://www.privateinternetaccess.com/pages/client-support/#eighth
-gateways=('CA Toronto' 'CA Montreal' 'CA Vancouver' 'Czech Republic' 'DE Berlin' 'DE Frankfurt' 'France' 'Israel' 'Romania' 'Spain' 'Switzerland' 'Sweden')
+
+# Temporarily remove Canada
+# https://www.privateinternetaccess.com/helpdesk/news/posts/march-31-2020-port-forwarding-issues
+# gateways=(ca_toronto ca_montreal ca_vancouver de_berlin de_frankfurt france czech_republic spain romania israel)
+gateways=(de_berlin de_frankfurt france czech_republic spain romania israel)
 
 echo "${OPENVPN_USERNAME}" > credentials.txt
 echo "${OPENVPN_PASSWORD}" >> credentials.txt
 
-if [ -f openvpn.zip ] || [ -f openvpn-strong.zip ]; then
-    if [ -f openvpn-strong.zip ]; then
-      unzip -q openvpn-strong.zip
-    elif [ -f openvpn.zip ]; then
-      unzip -q openvpn.zip
-    fi
+if [ -f openvpn*.zip ]; then
+    unzip -q openvpn*.zip
 
-    rm --force openvpn.zip openvpn-strong.zip
+    rm --force openvpn*.zip
 
     sed --in-place --regexp-extended \
-    --expression 's/^(auth-user-pass)$/\1 credentials.txt/' \
+    --expression 's|^(auth-user-pass)$|\1 credentials.txt|' \
     *.ovpn
 fi
 
-if [ "${OPENVPN_GATEWAY}" == 'Automatic' ]; then
+if [[ "${OPENVPN_GATEWAY}" =~ ^[Aa]uto ]]; then
     remotes=$(sed --regexp-extended --silent 's/^remote\s+(.*)\s+[0-9]+$/\1/p' "${gateways[@]/%/.ovpn}")
 
     while true; do
