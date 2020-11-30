@@ -1,8 +1,8 @@
 FROM bmoorman/ubuntu:bionic
 
-ENV SABNZBD_PORT="8080"
+ARG DEBIAN_FRONTEND=noninteractive
 
-ARG DEBIAN_FRONTEND="noninteractive"
+ENV SABNZBD_PORT=8080
 
 RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' > /etc/apt/sources.list.d/sabnzbd.list \
  && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd.list \

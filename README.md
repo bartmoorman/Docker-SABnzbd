@@ -5,6 +5,7 @@
 docker run \
 --detach \
 --name sabnzbd \
+--restart unless-stopped \
 --publish 8080:8080 \
 --volume sabnzbd-config:/config \
 --volume sabnzbd-data:/data \
@@ -18,6 +19,7 @@ services:
   sabnzbd:
     image: bmoorman/sabnzbd:latest
     container_name: sabnzbd
+    restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
@@ -36,13 +38,14 @@ volumes:
 docker run \
 --detach \
 --name sabnzbd \
---dns 209.222.18.222 \
---dns 209.222.18.218 \
+--restart unless-stopped \
+--dns 1.1.1.1 \
+--dns 1.0.0.1 \
 --cap-add NET_ADMIN \
 --device /dev/net/tun \
 --publish 8080:8080 \
---env "OPENVPN_USERNAME=**username**" \
---env "OPENVPN_PASSWORD=**password**" \
+--env "PIA_USER=**username**" \
+--env "PIA_PASS=**password**" \
 --volume sabnzbd-config:/config \
 --volume sabnzbd-data:/data \
 bmoorman/sabnzbd:vpn
@@ -55,9 +58,10 @@ services:
   sabnzbd:
     image: bmoorman/sabnzbd:vpn
     container_name: sabnzbd
+    restart: unless-stopped
     dns:
-      - 209.222.18.222
-      - 209.222.18.218
+      - 1.1.1.1
+      - 1.0.0.1
     cap_add:
       - NET_ADMIN
     devices:
@@ -65,8 +69,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - OPENVPN_USERNAME=**username**
-      - OPENVPN_PASSWORD=**password**
+      - PIA_USER=**username**
+      - PIA_PASS=**password**
     volumes:
       - sabnzbd-config:/config
       - sabnzbd-data:/data
@@ -75,3 +79,10 @@ volumes:
   sabnzbd-config:
   sabnzbd-data:
 ```
+
+### Environment Variables
+|Variable|Description|Default|
+|--------|-----------|-------|
+|TZ|Sets the timezone|`America/Denver`|
+|PIA_USER|PIA username|`<empty>`|
+|PIA_PASS|PIA password|`<empty>`|
