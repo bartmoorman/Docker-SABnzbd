@@ -1,12 +1,11 @@
 FROM bmoorman/ubuntu:bionic
 
-ENV OPENVPN_USERNAME="**username**" \
-    OPENVPN_PASSWORD="**password**" \
-    OPENVPN_GATEWAY="Automatic" \
-    OPENVPN_LOCAL_NETWORK="192.168.0.0/16" \
-    SABNZBD_PORT="8080"
+ARG DEBIAN_FRONTEND=noninteractive
 
-ARG DEBIAN_FRONTEND="noninteractive"
+ENV PIA_USER="**username**" \
+    PIA_PASS="**password**" \
+    LOCAL_NETWORK="192.168.0.0/16" \
+    SABNZBD_PORT=8080
 
 WORKDIR /etc/openvpn
 
