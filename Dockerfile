@@ -21,8 +21,8 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/ap
     openvpn \
     p7zip-full \
     par2-tbb \
-    python-cryptography \
-    python-sabyenc \
+    python3-cryptography \
+    python3-sabyenc \
     sabnzbdplus \
     unrar \
     unzip \
