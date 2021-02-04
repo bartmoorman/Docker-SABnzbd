@@ -1,4 +1,4 @@
-FROM bmoorman/ubuntu:bionic
+FROM bmoorman/ubuntu:focal
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -9,10 +9,10 @@ ENV PIA_USER="**username**" \
 
 WORKDIR /etc/openvpn
 
-RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' > /etc/apt/sources.list.d/sabnzbd.list \
- && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd.list \
- && echo 'deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu bionic main' > /etc/apt/sources.list.d/sabnzbd-addons.list \
- && echo 'deb-src http://ppa.launchpad.net/jcfp/sab-addons/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd-addons.list \
+RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/apt/sources.list.d/sabnzbd.list \
+ && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' >> /etc/apt/sources.list.d/sabnzbd.list \
+ && echo 'deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu focal main' > /etc/apt/sources.list.d/sabnzbd-addons.list \
+ && echo 'deb-src http://ppa.launchpad.net/jcfp/sab-addons/ubuntu focal main' >> /etc/apt/sources.list.d/sabnzbd-addons.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F13930B14BB9F05F \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
