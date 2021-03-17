@@ -9,8 +9,6 @@ ENV PIA_USER="**username**" \
 
 WORKDIR /etc/openvpn
 
-COPY apt/ /etc/apt/
-
 RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/apt/sources.list.d/sabnzbd.list \
  && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' >> /etc/apt/sources.list.d/sabnzbd.list \
  && echo 'deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu focal main' > /etc/apt/sources.list.d/sabnzbd-addons.list \
