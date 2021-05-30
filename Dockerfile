@@ -11,7 +11,6 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/ap
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F13930B14BB9F05F \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
-    curl \
     openssh-client \
     p7zip-full \
     par2-tbb \
