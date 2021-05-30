@@ -1,6 +1,7 @@
-FROM bmoorman/ubuntu:focal
+FROM bmoorman/ubuntu:bionic
 
-ARG DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive \
+    TARGETPLATFORM
 
 ENV PIA_USER="**username**" \
     PIA_PASS="**password**" \
@@ -9,14 +10,16 @@ ENV PIA_USER="**username**" \
 
 WORKDIR /etc/openvpn
 
-RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/apt/sources.list.d/sabnzbd.list \
- && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' >> /etc/apt/sources.list.d/sabnzbd.list \
- && echo 'deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu focal main' > /etc/apt/sources.list.d/sabnzbd-addons.list \
- && echo 'deb-src http://ppa.launchpad.net/jcfp/sab-addons/ubuntu focal main' >> /etc/apt/sources.list.d/sabnzbd-addons.list \
+RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' > /etc/apt/sources.list.d/sabnzbd.list \
+ && echo 'deb-src http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd.list \
+ && echo 'deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd.list \
+ && echo 'deb-src http://ppa.launchpad.net/jcfp/sab-addons/ubuntu bionic main' >> /etc/apt/sources.list.d/sabnzbd.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F13930B14BB9F05F \
+ && echo 'deb https://packagecloud.io/ookla/speedtest-cli/ubuntu/ bionic main' > /etc/apt/sources.list.d/ookla_speedtest-cli.list \
+ && echo 'deb-src https://packagecloud.io/ookla/speedtest-cli/ubuntu/ bionic main' >> /etc/apt/sources.list.d/ookla_speedtest-cli.list \
+ && curl --silent --location "https://packagecloud.io/ookla/speedtest-cli/gpgkey" | apt-key add \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
-    curl \
     openssh-client \
     openvpn \
     p7zip-full \
@@ -24,11 +27,10 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/ap
     python3-cryptography \
     python3-sabyenc \
     sabnzbdplus \
+    speedtest \
     unrar \
     unzip \
     wget \
- && wget --quiet --directory-prefix /tmp "http://ftp.debian.org/debian/pool/main/n/netselect/netselect_0.3.ds1-28+b1_amd64.deb" \
- && dpkg --install /tmp/netselect_*_amd64.deb \
  && wget --quiet --directory-prefix /usr/local/share/ca-certificates "https://raw.githubusercontent.com/pia-foss/manual-connections/master/ca.rsa.4096.crt" \
  && update-ca-certificates \
  && wget --quiet --directory-prefix /etc/openvpn "https://www.privateinternetaccess.com/openvpn/openvpn.zip" \
@@ -36,6 +38,7 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/ap
  && apt-get clean \
  && rm --recursive --force /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY ${TARGETPLATFORM}/netselect /usr/local/bin/
 COPY openvpn/ /etc/openvpn/
 COPY sabnzbd/ /etc/sabnzbd/
 
