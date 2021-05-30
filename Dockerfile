@@ -20,6 +20,7 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu bionic main' > /etc/a
  && curl --silent --location "https://packagecloud.io/ookla/speedtest-cli/gpgkey" | apt-key add \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
+    jq \
     openssh-client \
     openvpn \
     p7zip-full \
