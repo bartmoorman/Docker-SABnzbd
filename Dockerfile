@@ -14,7 +14,6 @@ RUN echo 'deb http://ppa.launchpad.net/jcfp/nobetas/ubuntu focal main' > /etc/ap
  && curl --silent --location "https://packagecloud.io/ookla/speedtest-cli/gpgkey" | apt-key add \
  && apt-get update \
  && apt-get install --yes --no-install-recommends \
-    openssh-client \
     p7zip-full \
     par2-tbb \
     python3-cryptography \
